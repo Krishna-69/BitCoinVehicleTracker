@@ -5,19 +5,17 @@ import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 
 const JWT_SECRET = process.env.JWT_SECRET || "your_jwt_secret";
-const USER = process.env.MONGODB_USER || "user";
-const PASSWORD = process.env.MONGODB_PASSWORD || "password";
 
 export async function POST(req: NextRequest) {
-  await Connection(USER, PASSWORD);
+  await Connection();
 
   const body = await req.json();
   const { action } = body;
 
   if (action === 'signup') {
-    const { email, password, name, userType } = body;
+    const { email, password, name, accountType } = body;
 
-    if (!email || !password || !name || !userType) {
+    if (!email || !password || !name || !accountType) {
       return NextResponse.json({ error: "Missing fields" }, { status: 400 });
     }
 
@@ -32,7 +30,7 @@ export async function POST(req: NextRequest) {
       email,
       password: hashedPassword,
       name,
-      userType,
+      userType: accountType,
     });
 
     await user.save();

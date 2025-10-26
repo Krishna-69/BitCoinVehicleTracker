@@ -2,8 +2,8 @@
 
 import mongoose from 'mongoose';
 
-const Connection = async (username: string, password: string): Promise<void> => {
-    const URL = `mongodb+srv://${username}:${password}@cluster0.m9kkcg0.mongodb.net/BitCoinVehicleTracking`;
+const Connection = async (): Promise<void> => {
+    const URL = "mongodb+srv://admin:krishnarstg_69@cluster0.5w2z6zh.mongodb.net/BitCoinVehicleTracking";
 
     try {
         await mongoose.connect(URL);
